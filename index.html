@@ -247,7 +247,7 @@ input[type=range] { width: 100%; accent-color: var(--glow); height: 28px; }
        THE POSTER
        To use a real photo: replace the <svg> inside .poster-photo with
        <img src="photos/kim-poster.jpg" alt="Kim, looking unimpressed">
-       and delete the .swap-note line. A portrait photo works for both
+       A portrait photo works for both
        the phone and laptop versions of the poster.
        ===================================================== -->
   <div class="poster-frame">
@@ -289,8 +289,7 @@ input[type=range] { width: 100%; accent-color: var(--glow); height: 28px; }
         </svg>
       </div>
       <div class="poster-shade"></div>
-      <span class="swap-note">Kim's best photo goes here</span>
-
+      
       <div class="poster-inner">
         <div class="reviews">
           <div class="review">
@@ -465,17 +464,17 @@ input[type=range] { width: 100%; accent-color: var(--glow); height: 28px; }
 
 // Set to false before going live. It shows a "pretend I scanned the card" button
 // so you can test the WhatsApp unlock without a real QR code.
-const PREVIEW_MODE = true;
+const PREVIEW_MODE = false;
 
 // Kim's WhatsApp link, encrypted. Only someone with the key (in the QR code,
-// after the # in the address) can unlock it. This one is a PLACEHOLDER using a
-// fake UK number and the key "kim-test".
+// after the # in the address) can unlock it. This is Kim's real link, locked
+// with the key printed in the QR codes on the cards.
 // To make the real one: open this page in a browser, open the console and run
 //   await makeSecret("https://wa.me/447XXXXXXXXX?text=Hi%20Kim", "your-secret-key")
 // then paste the result over SECRET below. Your QR code points to:
 //   https://YOURNAME.github.io/REPO/#your-secret-key
-const SECRET = {"salt":"4Ua/jMi4W57onKBAOX8F5Q==","iv":"uT67bqbm7/468WD/","data":"vlwkHZWBT8V9DeGQUwfL5TCXgNkO2H9CtxbRnh/kYjUQourt/N+Scm8hn79+AEZ+MYst/vnIeZp4p7X46GJ8s/coC/Apu4RODlyjcgoyLQikEdbckZcYO5GbIfyCLyppH9E="};
-const PREVIEW_KEY = "kim-test";
+const SECRET = {"salt":"xwYl8IXvco7wT7KeRtxjSA==","iv":"aJnxKEiORUkdzNb1","data":"TRaYi8vwXQWhYjz1Iw4r4jy43vWm4kXJ8bohUrNLtI3gZkAhiVt+Fdv1VXZGdkNWjVHj5cOW6ss0H+hkwtCkuD5TK1uUsUXbiqfaUiOMs2jLRliv3Rlp3JQthhwelYv6qUI="};
+const PREVIEW_KEY = ""; // never put the real key here: this file is public
 
 /* =========================================================================
    ROASTS
