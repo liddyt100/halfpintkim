@@ -1,0 +1,678 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Half Pint Kim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Now showing. Strictly for card holders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;800;900&family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a movie poster that changes format with the screen.
+   Phone = portrait one-sheet. Laptop = landscape UK quad poster (photo right, title left).
+   The extras sit underneath: one column on a phone, a two-column grid on a laptop.
+   Single dark look on purpose (a cinema at night), so no light theme. */
+:root {
+  --ink: #140d1d;
+  --velvet: #3b1030;
+  --velvet-2: #5a1844;
+  --glow: #ffb547;
+  --cream: #f7ecdb;
+  --muted: #bba7bb;
+  --line: rgba(247, 236, 219, 0.14);
+  --card: rgba(247, 236, 219, 0.05);
+  --font-display: "League Spartan", "Futura", "Avenir Next", system-ui, sans-serif;
+  --font-billing: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --gap: clamp(28px, 4vw, 48px);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: radial-gradient(120% 70% at 50% 0%, var(--velvet) 0%, var(--ink) 65%) fixed, var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: clamp(16px, 3vw, 40px) 56px;
+}
+.page { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--gap); }
+h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p, figure { margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
+
+/* =========================================================
+   POSTER
+   ========================================================= */
+.poster-frame {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+@media (min-width: 900px) {
+  /* Landscape poster, sized so the whole thing fits on screen */
+  .poster-frame { max-width: min(1200px, calc((100svh - 80px) * 4 / 3)); }
+}
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px var(--line);
+  isolation: isolate;
+}
+.poster-photo { position: absolute; inset: 0; z-index: -2; }
+.poster-photo svg, .poster-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.poster-shade {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(20,13,29,.92) 0%, rgba(20,13,29,0) 30%),
+    linear-gradient(to top, rgba(20,13,29,1) 8%, rgba(20,13,29,.75) 34%, rgba(20,13,29,0) 58%);
+}
+.swap-note {
+  position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .14em; font-size: 9px;
+  color: rgba(247,236,219,.55); border: 1px dashed rgba(247,236,219,.35); padding: 4px 8px; border-radius: 3px; white-space: nowrap;
+}
+.poster-inner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 5.5cqw 6cqw 5cqw;
+}
+.reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw 3cqw; }
+.review { text-align: center; }
+.stars { color: var(--glow); letter-spacing: .12em; font-size: clamp(11px, 3cqw, 15px); line-height: 1; }
+.stars .off { color: rgba(247,236,219,.22); }
+.quote { font-family: var(--font-display); font-weight: 600; font-size: clamp(11px, 3cqw, 15px); line-height: 1.2; margin-top: .35em; }
+.outlet { font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .14em; font-size: clamp(8px, 2.1cqw, 10px); color: var(--muted); margin-top: .4em; }
+
+.poster-foot { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.8cqw; }
+.tagline { font-family: var(--font-display); font-weight: 600; font-size: clamp(13px, 3.7cqw, 18px); line-height: 1.25; max-width: 30ch; text-wrap: balance; }
+.title {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  line-height: .82; letter-spacing: -.02em; margin: .5cqw 0 0;
+  font-size: 19cqw;
+  text-shadow: 0 0 30px rgba(255,181,71,.35);
+}
+.title .half { display: block; font-size: .44em; letter-spacing: .32em; font-weight: 800; color: var(--glow); margin-bottom: .18em; text-shadow: none; padding-left: .32em; }
+.billing {
+  font-family: var(--font-billing); text-transform: uppercase;
+  font-size: clamp(9px, 2.6cqw, 12px); letter-spacing: .1em; line-height: 1.35;
+  color: rgba(247,236,219,.7); max-width: 46ch;
+}
+.billing b { font-weight: 600; color: rgba(247,236,219,.85); }
+.poster-meta { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: .6cqw; }
+.rating { border: 1.5px solid var(--cream); border-radius: 3px; font-family: var(--font-billing); font-size: clamp(8px, 2cqw, 10px); letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; display: flex; gap: 6px; align-items: center; }
+.rating strong { font-size: 1.45em; font-weight: 600; }
+.showing { font-family: var(--font-display); font-weight: 800; letter-spacing: .2em; font-size: clamp(10px, 2.4cqw, 12px); color: var(--glow); text-transform: uppercase; }
+
+/* Landscape "quad" poster once the frame is wide enough */
+@container (min-width: 760px) {
+  .poster { aspect-ratio: 4 / 3; }
+  .poster-photo { left: 40%; }
+  .poster-shade {
+    background:
+      linear-gradient(to right, rgba(20,13,29,1) 38%, rgba(20,13,29,.6) 48%, rgba(20,13,29,0) 64%),
+      linear-gradient(to top, rgba(20,13,29,.8) 0%, rgba(20,13,29,0) 22%);
+  }
+  .swap-note { left: 70%; top: 40%; font-size: 11px; }
+  .poster-inner { padding: 4.5cqw 5cqw 4cqw; width: 56%; }
+  .reviews { gap: 2.4cqw 3cqw; }
+  .review { text-align: left; }
+  .stars { font-size: clamp(12px, 1.5cqw, 17px); }
+  .quote { font-size: clamp(13px, 1.65cqw, 19px); }
+  .outlet { font-size: clamp(9px, 1cqw, 11px); }
+  .poster-foot { align-items: flex-start; text-align: left; gap: 1.3cqw; }
+  .tagline { font-size: clamp(16px, 2.1cqw, 24px); max-width: 26ch; }
+  .title { font-size: 13.5cqw; margin-left: -.04em; }
+  .title .half { padding-left: 0; font-size: .34em; white-space: nowrap; }
+  .billing { font-size: clamp(10px, 1.2cqw, 13px); max-width: 64ch; }
+  .poster-meta { justify-content: flex-start; gap: 16px; }
+  .rating { font-size: clamp(9px, 1cqw, 11px); }
+  .showing { font-size: clamp(11px, 1.2cqw, 13px); }
+}
+
+/* =========================================================
+   MENU
+   ========================================================= */
+.menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: calc(var(--gap) * -0.5); }
+.menu a { font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--cream); text-decoration: none; border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; background: var(--card); }
+.menu a:hover { border-color: var(--glow); color: var(--glow); }
+
+/* =========================================================
+   EXTRAS GRID
+   ========================================================= */
+.extras { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap); max-width: 560px; width: 100%; margin: 0 auto; }
+@media (min-width: 900px) {
+  .extras { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; column-gap: 32px; }
+  .extras .wide { grid-column: 1 / -1; }
+}
+.section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 20px; min-width: 0; }
+.eyebrow { font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .2em; font-size: 12px; color: var(--glow); }
+.section h2 { font-size: clamp(28px, 3vw, 38px); font-weight: 800; line-height: 1; letter-spacing: -.01em; }
+.lede { color: var(--muted); font-size: 15px; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: clamp(16px, 2vw, 24px); display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+.btn {
+  appearance: none; border: 0; cursor: pointer; font-family: var(--font-display); font-weight: 800;
+  font-size: 17px; letter-spacing: .02em; padding: 15px 20px; border-radius: 12px;
+  background: var(--glow); color: #2a1406; text-decoration: none; text-align: center;
+  display: inline-flex; justify-content: center; align-items: center; gap: 10px;
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: scale(.97); }
+.btn.ghost { background: transparent; color: var(--cream); border: 1px solid var(--line); font-weight: 600; font-size: 15px; padding: 12px 16px; }
+.btn.wa { background: #25d366; color: #062b14; }
+
+/* Stills: swipe strip on a phone, three across on a laptop */
+.stills { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+.still { flex: 0 0 72%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 8px; }
+.still .frame { aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #22142c; }
+.still .frame svg, .still .frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.still figcaption { font-size: 13px; color: var(--muted); }
+.still figcaption b { color: var(--cream); font-weight: 600; }
+@media (min-width: 600px) { .still { flex-basis: 46%; } }
+@media (min-width: 900px) {
+  .stills { overflow: visible; gap: 24px; }
+  .still { flex: 1 1 0; min-width: 0; }
+  .still figcaption { font-size: 14px; }
+}
+
+/* Darts */
+#board { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; border-radius: 10px; background: linear-gradient(#3a2a1d, #2b1f15); touch-action: manipulation; cursor: crosshair; }
+.scoreline { display: flex; justify-content: space-between; font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .12em; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.scoreline b { color: var(--cream); }
+.dart-msg { font-family: var(--font-display); font-weight: 800; font-size: 20px; min-height: 1.3em; text-align: center; }
+
+/* Quiz */
+#quiz { justify-content: center; }
+.q-title { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1.2; }
+.q-step { font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--muted); }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt { appearance: none; text-align: left; font: inherit; font-size: 15px; color: var(--cream); background: rgba(247,236,219,.06); border: 1px solid var(--line); border-radius: 10px; padding: 13px 14px; cursor: pointer; }
+.opt:hover { border-color: var(--glow); }
+.diagnosis { font-family: var(--font-display); font-size: 24px; font-weight: 800; line-height: 1.2; }
+.signed { font-size: 13px; color: var(--muted); }
+
+/* Cheap date */
+.slider-row { display: flex; flex-direction: column; gap: 8px; }
+.slider-row label { font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
+.slider-row output { font-family: var(--font-display); font-weight: 800; color: var(--cream); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--glow); height: 28px; }
+.receipt { background: var(--cream); color: #2a1a20; border-radius: 6px; padding: 16px 16px 20px; font-family: var(--font-billing); letter-spacing: .03em; font-variant-numeric: tabular-nums; position: relative; margin-bottom: 8px; }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: radial-gradient(circle at 6px 0, transparent 6px, var(--cream) 6.5px) 0 0 / 12px 8px repeat-x; transform: scaleY(-1); }
+.receipt h3 { font-family: var(--font-billing); font-weight: 600; text-transform: uppercase; letter-spacing: .18em; font-size: 14px; text-align: center; margin-bottom: 10px; }
+.receipt .row { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; padding: 3px 0; }
+.receipt .total { border-top: 1.5px dashed #2a1a20; margin-top: 8px; padding-top: 8px; font-weight: 600; font-size: 17px; }
+.receipt .note { font-family: var(--font-body); font-size: 13px; margin-top: 10px; text-align: center; letter-spacing: 0; }
+
+/* Roast */
+.roast-section { background: linear-gradient(160deg, var(--velvet-2), var(--velvet)); border: 1px solid rgba(255,181,71,.25); border-radius: 18px; padding: clamp(20px, 2.5vw, 32px); }
+.roast-card { min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 10px; background: rgba(20,13,29,.5); border-radius: 12px; padding: 20px 18px; flex: 1; }
+.roast-cat { font-family: var(--font-billing); text-transform: uppercase; letter-spacing: .18em; font-size: 11px; color: var(--glow); }
+.roast-text { font-family: var(--font-display); font-weight: 800; font-size: clamp(21px, 2.2vw, 26px); line-height: 1.2; text-wrap: balance; }
+.roast-text.idle { color: var(--muted); font-weight: 600; font-size: 18px; }
+.roast-count { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97); }
+@keyframes shake { 10%,90%{transform:translateX(-2px) rotate(-.4deg)} 20%,80%{transform:translateX(4px) rotate(.4deg)} 30%,50%,70%{transform:translateX(-7px) rotate(-.8deg)} 40%,60%{transform:translateX(7px) rotate(.8deg)} }
+.unlock { display: flex; flex-direction: column; gap: 12px; border-top: 1px dashed rgba(247,236,219,.25); padding-top: 18px; animation: rise .5s ease both; }
+@keyframes rise { from { opacity: .3; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.unlock h3 { font-size: 22px; font-weight: 800; line-height: 1.15; }
+.locked-msg { font-size: 14px; color: var(--muted); }
+.preview-btn { font-size: 12px; color: var(--muted); background: none; border: 1px dashed var(--line); border-radius: 8px; padding: 8px 10px; cursor: pointer; font-family: var(--font-body); align-self: flex-start; }
+
+/* Small print */
+.smallprint { font-size: 11.5px; line-height: 1.5; color: rgba(187,167,187,.8); border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 6px 32px; }
+.smallprint h3 { font-family: var(--font-billing); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); }
+@media (min-width: 900px) {
+  .smallprint { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .smallprint h3 { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake, .unlock { animation: none; }
+  .btn { transition: none; }
+}
+</style>
+
+<div class="page">
+
+  <!-- =====================================================
+       THE POSTER
+       To use a real photo: replace the <svg> inside .poster-photo with
+       <img src="photos/kim-poster.jpg" alt="Kim, looking unimpressed">
+       and delete the .swap-note line. A portrait photo works for both
+       the phone and laptop versions of the poster.
+       ===================================================== -->
+  <div class="poster-frame">
+    <header class="poster" aria-label="Half Pint Kim, the movie poster">
+      <div class="poster-photo">
+        <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder silhouette of Kim holding a half pint">
+          <defs>
+            <radialGradient id="bgGlow" cx="62%" cy="38%" r="70%">
+              <stop offset="0" stop-color="#c2533f"/>
+              <stop offset=".35" stop-color="#6b1f45"/>
+              <stop offset="1" stop-color="#180d22"/>
+            </radialGradient>
+            <linearGradient id="rim" x1="1" x2="0">
+              <stop offset="0" stop-color="#ffcf8a" stop-opacity=".9"/>
+              <stop offset=".25" stop-color="#ffb547" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="beer" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffcf6a"/>
+              <stop offset="1" stop-color="#c77a12"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="600" fill="url(#bgGlow)"/>
+          <g opacity=".18" fill="#ffb547">
+            <circle cx="60" cy="140" r="2"/><circle cx="340" cy="90" r="1.6"/><circle cx="300" cy="210" r="2.4"/><circle cx="90" cy="260" r="1.4"/><circle cx="360" cy="300" r="1.8"/><circle cx="40" cy="380" r="2"/>
+          </g>
+          <g fill="#130a19">
+            <path d="M150 600 C150 520 120 470 110 440 C100 410 120 380 165 368 L180 330 L222 330 L236 368 C282 380 300 410 292 440 C284 470 252 520 252 600 Z"/>
+            <path d="M140 250 C130 170 170 125 205 125 C248 125 278 168 268 245 C265 290 270 330 290 372 C250 360 238 330 236 300 L172 300 C168 330 150 360 112 372 C134 330 142 292 140 250 Z"/>
+            <ellipse cx="203" cy="232" rx="50" ry="64"/>
+          </g>
+          <path d="M253 175 C272 200 270 245 266 270 C264 300 274 340 290 372" stroke="url(#rim)" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M236 368 C282 380 300 410 292 440" stroke="#ffcf8a" stroke-opacity=".55" stroke-width="3" fill="none"/>
+          <g transform="translate(286 382) rotate(6)">
+            <path d="M0 0 L40 0 L35 66 L5 66 Z" fill="url(#beer)" opacity=".95"/>
+            <path d="M-1 -10 C6 -18 34 -18 41 -10 L40 2 L0 2 Z" fill="#fff4dc"/>
+            <path d="M6 8 L9 58" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <path d="M262 440 C275 425 286 418 296 414" stroke="#130a19" stroke-width="22" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="poster-shade"></div>
+      <span class="swap-note">Kim's best photo goes here</span>
+
+      <div class="poster-inner">
+        <div class="reviews">
+          <div class="review">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <p class="quote">"Two pints and she's gone."</p>
+            <p class="outlet">The Morning Advertiser</p>
+          </div>
+          <div class="review">
+            <div class="stars" aria-label="4 stars">★★★★<span class="off">★</span></div>
+            <p class="quote">"Leaves before the starters arrive."</p>
+            <p class="outlet">Uber Drivers Weekly</p>
+          </div>
+          <div class="review">
+            <div class="stars" aria-label="1 star">★<span class="off">★★★★</span></div>
+            <p class="quote">"Has never hit the board. Not once."</p>
+            <p class="outlet">Darts World</p>
+          </div>
+          <div class="review">
+            <div class="stars" aria-label="3 stars">★★★<span class="off">★★</span></div>
+            <p class="quote">"Smiled at me. Then psychoanalysed me."</p>
+            <p class="outlet">Psychology Today</p>
+          </div>
+        </div>
+
+        <div class="poster-foot">
+          <p class="tagline">One drink. Gone by ten. Still found time to ruin your evening.</p>
+          <h1 class="title"><span class="half">Half Pint</span>Kim</h1>
+          <p class="billing">Imported from Australia. Somehow got through customs.</p>
+          <div class="poster-meta">
+            <span class="rating"><strong>18</strong> Rated 18 for language</span>
+            <span class="showing">In a pub near you</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <nav class="menu" aria-label="Extras">
+    <a href="#stills">Stills</a>
+    <a href="#darts">Darts</a>
+    <a href="#assessment">Assessment</a>
+    <a href="#cheap-date">Cheap date</a>
+    <a href="#roast">Roast me</a>
+  </nav>
+
+  <main class="extras">
+
+    <!-- =====================================================
+         STILLS FROM THE FILM
+         Swap each <svg> for <img src="photos/still-1.jpg" alt="..."> and edit the captions.
+         ===================================================== -->
+    <section class="section wide" id="stills">
+      <p class="eyebrow">Extras · Stills from the film</p>
+      <h2>Behind the scenes</h2>
+      <div class="stills">
+        <figure class="still">
+          <div class="frame">
+            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder: Kim playing darts">
+              <rect width="400" height="500" fill="#3a2a1d"/>
+              <circle cx="250" cy="160" r="80" fill="#1b1410"/><circle cx="250" cy="160" r="62" fill="#e9dcc3"/><circle cx="250" cy="160" r="40" fill="#1b1410"/><circle cx="250" cy="160" r="10" fill="#c0392b"/>
+              <g stroke="#ffb547" stroke-width="3"><line x1="70" y1="70" x2="92" y2="92"/><line x1="360" y1="300" x2="378" y2="318"/></g>
+              <path d="M60 500 C60 420 80 380 120 365 L130 330 L170 330 L180 365 C215 380 230 420 230 500 Z" fill="#130a19"/>
+              <ellipse cx="150" cy="290" rx="40" ry="50" fill="#130a19"/>
+              <path d="M215 395 L300 330" stroke="#130a19" stroke-width="20" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <figcaption><b>Kim at the oche.</b> The dart is in the ceiling. Nobody knows how.</figcaption>
+        </figure>
+        <figure class="still">
+          <div class="frame">
+            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder: Kim with a half pint">
+              <rect width="400" height="500" fill="#2a1830"/>
+              <circle cx="200" cy="200" r="150" fill="#5a1844" opacity=".6"/>
+              <path d="M80 500 C80 410 110 370 160 355 L170 320 L230 320 L240 355 C290 370 320 410 320 500 Z" fill="#130a19"/>
+              <ellipse cx="200" cy="250" rx="52" ry="64" fill="#130a19"/>
+              <g transform="translate(250 360)"><path d="M0 0 L44 0 L38 70 L6 70 Z" fill="#e8a33a"/><path d="M-1 -10 C8 -18 36 -18 45 -10 L44 2 L0 2 Z" fill="#fff4dc"/></g>
+            </svg>
+          </div>
+          <figcaption><b>One drink in.</b> She has been holding this same half since eight o'clock.</figcaption>
+        </figure>
+        <figure class="still">
+          <div class="frame">
+            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder: Kim taking notes">
+              <rect width="400" height="500" fill="#1d1a2e"/>
+              <rect x="40" y="300" width="320" height="90" rx="30" fill="#6b2a3a"/><rect x="40" y="260" width="90" height="130" rx="30" fill="#7a3346"/>
+              <path d="M200 500 C200 420 220 380 260 368 L268 336 L312 336 L320 368 C350 380 370 420 370 500 Z" fill="#130a19"/>
+              <ellipse cx="290" cy="270" rx="42" ry="52" fill="#130a19"/>
+              <rect x="180" y="380" width="70" height="90" rx="4" fill="#f7ecdb" transform="rotate(-8 215 425)"/>
+              <g stroke="#9a8a9a" stroke-width="3"><line x1="192" y1="400" x2="236" y2="394"/><line x1="194" y1="414" x2="232" y2="409"/><line x1="196" y1="428" x2="224" y2="424"/></g>
+            </svg>
+          </div>
+          <figcaption><b>"And how does that make you feel?"</b> She's not asking. She's taking notes.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================================================== DARTS ===================================================== -->
+    <section class="section" id="darts">
+      <p class="eyebrow">Extras · Interactive</p>
+      <h2>Play darts like Kim</h2>
+      <p class="lede">Tap the board to throw. Aim wherever you like. It won't help.</p>
+      <div class="panel">
+        <svg id="board" viewBox="0 0 300 300" role="img" aria-label="Dartboard. Tap to throw a dart."></svg>
+        <p class="dart-msg" id="dartMsg" aria-live="polite">Go on then.</p>
+        <div class="scoreline"><span>Darts thrown: <b id="thrown">0</b></span><span>Score: <b>0</b></span></div>
+      </div>
+    </section>
+
+    <!-- ===================================================== PSYCH ASSESSMENT ===================================================== -->
+    <section class="section" id="assessment">
+      <p class="eyebrow">Extras · Free consultation</p>
+      <h2>Get assessed by a professional</h2>
+      <p class="lede">Kim works in psychology. Three questions. She'll know everything.</p>
+      <div class="panel" id="quiz" aria-live="polite"></div>
+    </section>
+
+    <!-- ===================================================== CHEAP DATE ===================================================== -->
+    <section class="section" id="cheap-date">
+      <p class="eyebrow">Extras · Budgeting tool</p>
+      <h2>The cheap date calculator</h2>
+      <p class="lede">Tell us your budget for a first date with Kim.</p>
+      <div class="panel">
+        <div class="slider-row">
+          <label for="budget"><span>Your budget</span><output id="budgetOut" for="budget">£40</output></label>
+          <input type="range" id="budget" min="5" max="300" step="5" value="40">
+        </div>
+        <div class="receipt">
+          <h3>The Half Pint · Table 4</h3>
+          <div class="row"><span>½ lager</span><span>£3.40</span></div>
+          <div class="row"><span>Pkt crisps (shared)</span><span>£1.50</span></div>
+          <div class="row"><span>Lime &amp; soda × 3</span><span>£0.00</span></div>
+          <div class="row total"><span>Total</span><span>£4.90</span></div>
+          <p class="note" id="budgetNote"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== ROAST ME ===================================================== -->
+    <section class="section roast-section" id="roast">
+      <p class="eyebrow">The main feature</p>
+      <h2>She's roasted herself all the way down. Your turn.</h2>
+      <div class="roast-card" id="roastCard">
+        <p class="roast-cat" id="roastCat" hidden></p>
+        <p class="roast-text idle" id="roastText" aria-live="polite">Press the button. Kim's ready when you are.</p>
+      </div>
+      <button class="btn" id="roastBtn" type="button">Roast me</button>
+      <p class="roast-count" id="roastCount" hidden></p>
+
+      <div class="unlock" id="unlock" hidden>
+        <h3>Think you could handle another roast? WhatsApp me.</h3>
+        <a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener" hidden>WhatsApp Kim</a>
+        <p class="locked-msg" id="lockedMsg" hidden>This bit only works if Kim handed you the card. No card, no number. Those are the rules, sorry not sorry.</p>
+        <button class="preview-btn" id="previewBtn" type="button" hidden>Preview only: pretend I scanned the card</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================== SMALL PRINT ===================================================== -->
+  <footer class="smallprint">
+    <h3>Terms and conditions</h3>
+    <p>By scanning this card you agree to be roasted. No refunds. No appeals. Kim's decision is final and probably correct.</p>
+    <p>Half Pint Kim is a work of fiction. Any resemblance to a short Australian who switched to lime and soda at half eight is entirely deliberate.</p>
+    <p>No dartboards were harmed in the making of this film. Several walls were. Kim is not your therapist, and she will be invoicing you anyway.</p>
+  </footer>
+</div>
+
+<script>
+/* =========================================================================
+   SETTINGS (edit these)
+   ========================================================================= */
+
+// Set to false before going live. It shows a "pretend I scanned the card" button
+// so you can test the WhatsApp unlock without a real QR code.
+const PREVIEW_MODE = true;
+
+// Kim's WhatsApp link, encrypted. Only someone with the key (in the QR code,
+// after the # in the address) can unlock it. This one is a PLACEHOLDER using a
+// fake UK number and the key "kim-test".
+// To make the real one: open this page in a browser, open the console and run
+//   await makeSecret("https://wa.me/447XXXXXXXXX?text=Hi%20Kim", "your-secret-key")
+// then paste the result over SECRET below. Your QR code points to:
+//   https://YOURNAME.github.io/REPO/#your-secret-key
+const SECRET = {"salt":"4Ua/jMi4W57onKBAOX8F5Q==","iv":"uT67bqbm7/468WD/","data":"vlwkHZWBT8V9DeGQUwfL5TCXgNkO2H9CtxbRnh/kYjUQourt/N+Scm8hn79+AEZ+MYst/vnIeZp4p7X46GJ8s/coC/Apu4RODlyjcgoyLQikEdbckZcYO5GbIfyCLyppH9E="};
+const PREVIEW_KEY = "kim-test";
+
+/* =========================================================================
+   ROASTS
+   Grouped by category. One is picked at random each time, with no repeats
+   until they have all been used. Add, remove or edit lines freely.
+   ========================================================================= */
+const ROASTS = {
+  "Looks": [
+    "You look like the 'before' photo.",
+  ],
+  "Personality": [
+    "You're the human equivalent of 'per my last email'.",
+  ],
+  "The situation": [
+    "You scanned a QR code off a business card to get a date. Let that sink in.",
+  ],
+  "Half Pint": [
+    "Even Half Pint Kim could drink you under the table.",
+    "Kim's on the alcohol-free stuff by nine. Ten minutes with you and she'd be back on the gin.",
+  ],
+  "Cheap date": [
+    "Kim's the cheapest date going, and you still look like you'd ask to split it.",
+  ],
+  "Darts": [
+    "Kim's never hit a dartboard in her life. She'd still have a better shot than you.",
+  ],
+  "Psychology": [
+    "Kim works in psychology. She's had one look at you and cleared her afternoon.",
+  ],
+  "Australia": [
+    "Kim moved 10,000 miles to meet people like you. She's having second thoughts.",
+  ],
+};
+// Shown once, only after someone has been through every roast above.
+const BONUS_ROAST = "You've read this far. Kim's genuinely impressed, and a bit worried for you.";
+// Categories that should never come up first.
+const NOT_FIRST = ["Looks"];
+
+/* ========================================================================= */
+
+// ---------- WhatsApp unlock (AES-GCM, key from the # in the URL) ----------
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const toB64 = a => btoa(String.fromCharCode(...a));
+async function deriveKey(pass, salt, usage) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 150000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, [usage]);
+}
+async function unlockLink(pass) {
+  try {
+    const key = await deriveKey(pass, b64(SECRET.salt), "decrypt");
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(SECRET.iv) }, key, b64(SECRET.data));
+    return new TextDecoder().decode(plain);
+  } catch { return null; }
+}
+window.makeSecret = async function (link, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(pass, salt, "encrypt");
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(link)));
+  return JSON.stringify({ salt: toB64(salt), iv: toB64(iv), data: toB64(ct) });
+};
+
+let waLink = null;
+const $ = id => document.getElementById(id);
+function renderUnlock() {
+  const show = !!waLink;
+  $("waBtn").hidden = !show;
+  if (show) $("waBtn").href = waLink;
+  $("lockedMsg").hidden = show;
+  $("previewBtn").hidden = show || !PREVIEW_MODE;
+}
+(async () => {
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash && !document.getElementById(hash)) waLink = await unlockLink(hash);
+  renderUnlock();
+})();
+$("previewBtn").addEventListener("click", async () => { waLink = await unlockLink(PREVIEW_KEY); renderUnlock(); });
+
+// ---------- Roasts ----------
+const allRoasts = Object.entries(ROASTS).flatMap(([cat, list]) => list.map(text => ({ cat, text })));
+let deck = [], roastsSeen = 0, bonusShown = false;
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function newDeck(first) {
+  deck = shuffle(allRoasts.slice());
+  if (first) {
+    const i = deck.findIndex(r => !NOT_FIRST.includes(r.cat));
+    [deck[0], deck[i]] = [deck[i], deck[0]];
+  }
+}
+newDeck(true);
+$("roastBtn").addEventListener("click", () => {
+  let r;
+  if (!deck.length && !bonusShown) { r = { cat: "Bonus round", text: BONUS_ROAST }; bonusShown = true; }
+  else { if (!deck.length) newDeck(false); r = deck.shift(); }
+  roastsSeen++;
+  $("roastCat").textContent = r.cat;
+  $("roastCat").hidden = false;
+  const t = $("roastText");
+  t.textContent = r.text;
+  t.classList.remove("idle");
+  const card = $("roastCard");
+  card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
+  $("roastBtn").textContent = roastsSeen === 1 ? "Again. I can take it." : "Another one";
+  const c = $("roastCount");
+  c.hidden = false;
+  c.textContent = roastsSeen >= allRoasts.length + 1 ? "That's the lot. She's got more in person." : `Roast ${roastsSeen} of ${allRoasts.length}`;
+  $("unlock").hidden = false;
+});
+
+// ---------- Darts ----------
+const NS = "http://www.w3.org/2000/svg";
+const board = $("board");
+(function drawBoard() {
+  const cx = 150, cy = 150;
+  const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  board.appendChild(el("circle", { cx, cy, r: 96, fill: "#151010" }));
+  const rings = [[84, 76, true], [76, 50, false], [50, 42, true], [42, 14, false]];
+  for (let s = 0; s < 20; s++) {
+    const a0 = (s * 18 - 99) * Math.PI / 180, a1 = ((s + 1) * 18 - 99) * Math.PI / 180;
+    rings.forEach(([ro, ri, scoring]) => {
+      const dark = s % 2 === 0;
+      const fill = scoring ? (dark ? "#b8322e" : "#1f7a4a") : (dark ? "#1b1414" : "#efe2c6");
+      const p = (r, a) => `${cx + r * Math.cos(a)} ${cy + r * Math.sin(a)}`;
+      board.appendChild(el("path", { d: `M${p(ri, a0)} L${p(ro, a0)} A${ro} ${ro} 0 0 1 ${p(ro, a1)} L${p(ri, a1)} A${ri} ${ri} 0 0 0 ${p(ri, a0)} Z`, fill }));
+    });
+  }
+  board.appendChild(el("circle", { cx, cy, r: 14, fill: "#1f7a4a" }));
+  board.appendChild(el("circle", { cx, cy, r: 6, fill: "#b8322e" }));
+  board.appendChild(el("g", { id: "darts-layer" }));
+})();
+const missLines = [
+  "Wall. Classic Kim.",
+  "That one hit the barman.",
+  "Closer. No, actually further.",
+  "That's Kim's aim, mate.",
+  "Somewhere, a dartboard is laughing at you.",
+  "Try aiming at the wall. Might reverse it.",
+  "The board has filed a restraining order.",
+  "Honestly? That's her personal best.",
+];
+let thrown = 0;
+board.addEventListener("click", () => {
+  thrown++;
+  const ang = Math.random() * Math.PI * 2, dist = 104 + Math.random() * 36;
+  const x = Math.min(288, Math.max(12, 150 + dist * Math.cos(ang)));
+  const y = Math.min(288, Math.max(12, 150 + dist * Math.sin(ang)));
+  const layer = document.getElementById("darts-layer");
+  const g = document.createElementNS(NS, "g");
+  g.innerHTML = `<line x1="${x}" y1="${y}" x2="${x + 14}" y2="${y - 14}" stroke="#d9c9a8" stroke-width="2.5" stroke-linecap="round"/><path d="M${x + 12} ${y - 12} l8 -2 l-3 5 l5 3 l-8 2 z" fill="#ffb547"/><circle cx="${x}" cy="${y}" r="2" fill="#fff"/>`;
+  layer.appendChild(g);
+  if (layer.children.length > 9) layer.firstChild.remove();
+  $("thrown").textContent = thrown;
+  $("dartMsg").textContent = missLines[(thrown - 1) % missLines.length];
+});
+
+// ---------- Psych assessment ----------
+const QUIZ = [
+  { q: "How do you take your tea?", a: ["Milk, two sugars", "Black, like my soul", "I don't drink tea"] },
+  { q: "Your ideal Saturday?", a: ["Parkrun, obviously", "Pub from noon", "Ikea with my mum"] },
+  { q: "How would your ex describe you?", a: ["Fine", "Fine, actually", "We don't talk about that"] },
+];
+const DIAGNOSES = [
+  "You'd bore her by nine. She'd be on the lime and soda by half eight just to stay awake.",
+  "A textbook case of 'thinks he's funny'. No known cure. Possibly some management.",
+  "Completely normal. Which is honestly the most worrying result we've ever had.",
+  "Deeply average. Kim's charging you for the session anyway, you cheeky sod.",
+  "Attachment style: golden retriever. She's seen worse. Not much worse.",
+];
+let qi = 0;
+function renderQuiz() {
+  const box = $("quiz");
+  if (qi < QUIZ.length) {
+    const { q, a } = QUIZ[qi];
+    box.innerHTML = `<p class="q-step">Question ${qi + 1} of ${QUIZ.length}</p><p class="q-title">${q}</p><div class="options">${a.map((t, i) => `<button class="opt" type="button" data-i="${i}">${t}</button>`).join("")}</div>`;
+    box.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { qi++; renderQuiz(); }));
+  } else {
+    const d = DIAGNOSES[Math.floor(Math.random() * DIAGNOSES.length)];
+    box.innerHTML = `<p class="q-step">Assessment complete</p><p class="diagnosis">Diagnosis: ${d}</p><p class="signed">Signed, Kim. Results are final. Your answers were not taken into account.</p><button class="btn ghost" type="button" id="retake">Get a second opinion</button>`;
+    $("retake").addEventListener("click", () => { qi = 0; renderQuiz(); });
+  }
+}
+renderQuiz();
+
+// ---------- Cheap date calculator ----------
+function budgetNote(v) {
+  const left = (v - 4.9).toFixed(2);
+  if (v <= 5) return "Spot on. You've done your research.";
+  if (v <= 30) return `You'll have £${left} left over. Treat yourself to a personality.`;
+  if (v <= 100) return `£${left} change. She will not let you spend it on her. She'll let you hear about it, though.`;
+  return "Put your wallet away. You're embarrassing yourself.";
+}
+function updateBudget() {
+  const v = +$("budget").value;
+  $("budgetOut").textContent = `£${v}`;
+  $("budgetNote").textContent = budgetNote(v);
+}
+$("budget").addEventListener("input", updateBudget);
+updateBudget();
+</script>
+
+</body></html>
